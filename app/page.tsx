@@ -133,7 +133,7 @@ export default function Home() {
                 <br />
                 Jangki lupa perbanyak zikir dan perbanyak Minum Air Matcha &amp; Eskrim.
                 <br />
-                Sekian &amp; terima gaji.
+                Sekian &amp; Terima Gaji.
                 <br />
                 <br />
                 <span className="text-[color-mix(in_srgb,var(--text-muted)_82%,var(--pink-deep))]">
