@@ -131,7 +131,7 @@ export default function Home() {
                 <br />
                 Semoga hari-hari ta&apos; penuh dengan kebahagiaan dan kesenangan.
                 <br />
-                Jangki lupa perbanyak zikir dan perbanyak Minum Air Matcha &amp; Escream.
+                Jangki lupa perbanyak zikir dan perbanyak Minum Air Matcha &amp; Eskrim.
                 <br />
                 Sekian &amp; terima gaji.
                 <br />
