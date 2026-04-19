@@ -1,6 +1,9 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+/** Durasi loading sebelum konten utama (ms) — disengaja tidak terlalu cepat */
+const LOADING_DURATION_MS = 3800;
 
 function Heart({ className }: { className?: string }) {
   return (
@@ -38,15 +41,23 @@ function SmallFlower({ className }: { className?: string }) {
 }
 
 export default function Home() {
-  const [showSurprise, setShowSurprise] = useState(false);
+  const [phase, setPhase] = useState<'intro' | 'loading' | 'content'>('intro');
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleClick = () => {
-    setShowSurprise(true);
-    setTimeout(() => {
-      audioRef.current?.play();
-    }, 500);
+    setPhase('loading');
   };
+
+  useEffect(() => {
+    if (phase !== 'loading') return;
+    const id = window.setTimeout(() => {
+      setPhase('content');
+      window.setTimeout(() => {
+        void audioRef.current?.play();
+      }, 450);
+    }, LOADING_DURATION_MS);
+    return () => window.clearTimeout(id);
+  }, [phase]);
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-10 sm:p-6">
@@ -71,7 +82,7 @@ export default function Home() {
       <SmallFlower className="decor-float pointer-events-none absolute left-[22%] bottom-[12%] z-[2] h-4 w-4 text-[color-mix(in_srgb,var(--pink-deep)_35%,transparent)] sm:bottom-[15%] sm:h-6 sm:w-6" />
       <SmallFlower className="decor-float-delayed pointer-events-none absolute right-[20%] bottom-[28%] z-[2] h-5 w-5 text-[color-mix(in_srgb,var(--bubblegum)_42%,transparent)]" />
 
-      {!showSurprise ? (
+      {phase === 'intro' ? (
         <div className="relative z-10 w-full max-w-md sm:max-w-lg">
           <div className="card-pink-frame rounded-[2.35rem] p-[3px]">
             <section className="card-soft-dots rounded-[2.2rem] bg-gradient-to-b from-[var(--card-inner)] to-[color-mix(in_srgb,var(--card-inner)_88%,var(--pink-mist))] px-8 py-11 text-center shadow-inner dark:from-[var(--card-inner)] dark:to-[color-mix(in_srgb,var(--cream)_95%,var(--pink-mist))]">
@@ -93,6 +104,43 @@ export default function Home() {
               >
                 Wajib di klik NAH
               </button>
+            </section>
+          </div>
+        </div>
+      ) : phase === 'loading' ? (
+        <div className="relative z-10 w-full max-w-md sm:max-w-lg">
+          <div className="card-pink-frame rounded-[2.35rem] p-[3px]">
+            <section
+              className="card-soft-dots flex min-h-[280px] flex-col items-center justify-center gap-8 rounded-[2.2rem] bg-gradient-to-b from-[var(--card-inner)] to-[color-mix(in_srgb,var(--card-inner)_88%,var(--pink-mist))] px-8 py-12 text-center shadow-inner dark:from-[var(--card-inner)] dark:to-[color-mix(in_srgb,var(--cream)_95%,var(--pink-mist))]"
+              aria-busy
+              aria-live="polite"
+              aria-label="Memuat kejutan"
+            >
+              <div
+                className="h-14 w-14 rounded-full border-[3px] border-[color-mix(in_srgb,var(--pink-accent)_25%,transparent)] border-t-[var(--pink-accent)] animate-spin"
+                role="presentation"
+              />
+              <div>
+                <p className="font-display text-lg font-medium text-[var(--foreground)]">
+                  Bentar ya…
+                </p>
+                <p className="mt-1.5 text-sm text-[var(--text-muted)]">
+                  Lagi menyiapkan yang spesial
+                </p>
+              </div>
+              <div className="w-full max-w-[220px]">
+                <div className="h-2 overflow-hidden rounded-full bg-[color-mix(in_srgb,var(--pink-mist)_80%,white)] dark:bg-[color-mix(in_srgb,var(--pink-deep)_25%,transparent)]">
+                  <div
+                    className="loading-bar-fill h-full w-full rounded-full bg-gradient-to-r from-[var(--pink-hot)] via-[var(--pink-accent)] to-[var(--pink-deep)]"
+                    style={{
+                      animation: `loadBar ${LOADING_DURATION_MS}ms cubic-bezier(0.33, 1, 0.68, 1) forwards`,
+                    }}
+                  />
+                </div>
+                <p className="mt-3 text-xs text-[color-mix(in_srgb,var(--text-muted)_90%,var(--pink-deep))]">
+                  Sekitar {(LOADING_DURATION_MS / 1000).toFixed(1)} detik lagi
+                </p>
+              </div>
             </section>
           </div>
         </div>

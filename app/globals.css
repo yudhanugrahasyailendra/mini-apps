@@ -214,3 +214,17 @@ main {
   animation: floaty 5.8s ease-in-out infinite;
   animation-delay: -2s;
 }
+
+@keyframes loadBar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.loading-bar-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+}
