@@ -81,10 +81,10 @@ export default function Home() {
                 <span className="h-1.5 w-1.5 rounded-full bg-[color-mix(in_srgb,var(--mauve)_90%,var(--pink-accent))]" />
               </div>
               <p className="font-display mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.38em] text-[var(--pink-deep)] sm:text-xs">
-                Untuk kamu
+                Nur Aminia
               </p>
               <h1 className="font-display mb-9 text-[1.75rem] font-medium leading-[1.32] tracking-[-0.02em] text-[var(--foreground)] sm:text-[1.95rem]">
-                Ada sesuatu untuk kita&apos; Tante
+                Ada sesuatu untuk kita&apos;
               </h1>
               <button
                 type="button"
