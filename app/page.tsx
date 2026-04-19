@@ -141,7 +141,7 @@ export default function Home() {
                 </span>
               </p>
 
-              <audio ref={audioRef} src="/sounds/Raisa - Serba Salah.mp3" loop />
+              <audio ref={audioRef} src="/sounds/Raisa - Ternyata Tanpamu (Cantik).mp3" loop />
             </section>
           </div>
         </div>
